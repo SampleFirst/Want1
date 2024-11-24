@@ -1,17 +1,16 @@
-
 services:
-  # A Docker web service
   - type: web
-    name: music-finder-bot
+    name: bot-service
     env: python
-    branch: main2
-    startCommand: python3 bot.py
-    buildCommand: pip3 install -U -r requirements.txt
-    repo: https://github.com/SampleFirst/Want.git # optional
-    region: oregon # optional (defaults to oregon)
-    plan: free # optional (defaults to starter)
-    branch: main # optional (defaults to master)
-    numInstances: 1 # optional (defaults to 1)
-    healthCheckPath: /
-
-#End of yaml
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: python bot.py
+    envVars:
+      - key: "API_ID"
+        value: "your_api_id"
+      - key: "API_HASH"
+        value: "your_api_hash"
+      - key: "BOT_TOKEN"
+        value: "your_bot_token"
+      - key: "PORT"
+        value: "8080"  # Render will assign this dynamically, but you can explicitly set it if needed
