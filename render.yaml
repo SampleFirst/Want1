@@ -4,6 +4,7 @@ services:
   - type: web
     name: music-finder-bot
     env: python
+    branch: main2
     startCommand: python3 bot.py
     buildCommand: pip3 install -U -r requirements.txt
     repo: https://github.com/SampleFirst/Want.git # optional
