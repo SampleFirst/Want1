@@ -1,8 +1,9 @@
 import os
 from flask import Flask
 from pyrogram import Client
-from plugins.song import song_command
-from plugins.video import video_command
+from plugins.commands import start_command, help_command, about_command
+from plugins.song import find_song
+from plugins.video import find_video
 
 app = Flask(__name__)
 
@@ -19,9 +20,14 @@ bot = Client("my_bot", api_id=api_id, api_hash=api_hash, bot_token=bot_token)
 def home():
     return 'Bot is running!'
 
+# Register basic command handlers
+bot.add_handler(start_command)
+bot.add_handler(help_command)
+bot.add_handler(about_command)
+
 # Register song and video commands
-bot.add_handler(song_command)
-bot.add_handler(video_command)
+bot.add_handler(find_song)
+bot.add_handler(find_video)
 
 # Start the bot in Flask to keep it running
 if __name__ == "__main__":
