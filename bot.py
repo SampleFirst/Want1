@@ -1,28 +1,31 @@
-
-from pyrogram import Client
 import os
+from flask import Flask
+from pyrogram import Client
 
-# Import handlers
-from handlers.song import find_song
-from handlers.video import find_video
+# Create Flask app
+app = Flask(__name__)
 
-# Bot Configuration
-API_ID = os.getenv("API_ID", "your_api_id")  # Replace with your actual API ID
-API_HASH = os.getenv("API_HASH", "your_api_hash")  # Replace with your actual API Hash
-BOT_TOKEN = os.getenv("BOT_TOKEN", "your_bot_token")  # Replace with your bot token
+# Ensure the app listens on the correct port
+@app.route('/')
+def home():
+    return 'Bot is running!'
 
-# Initialize the bot
-app = Client(
-    "music_bot",
-    api_id=API_ID,
-    api_hash=API_HASH,
-    bot_token=BOT_TOKEN,
-)
+# Initialize the Telegram Bot
+api_id = os.getenv("API_ID")
+api_hash = os.getenv("API_HASH")
+bot_token = os.getenv("BOT_TOKEN")
+client = Client("my_bot", api_id=api_id, api_hash=api_hash, bot_token=bot_token)
 
-# Add handlers
-app.add_handler(find_song)
-app.add_handler(find_video)
+@app.route('/start')
+def start():
+    return 'Bot is running on Render!'
 
 if __name__ == "__main__":
-    print("Bot is running...")
-    app.run()
+    # Get PORT from environment variable or default to 5000
+    port = int(os.getenv("PORT", 5000))
+    
+    # Start the Flask server to keep the app alive
+    app.run(host="0.0.0.0", port=port)
+    
+    # Start the bot
+    client.run()
