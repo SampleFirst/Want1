@@ -9,3 +9,5 @@ wget
 aiohttp
 aiofiles
 python-dotenv
+youtube-dl
+ffmpeg
