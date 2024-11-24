@@ -30,5 +30,10 @@ def stop_bot():
     client.stop()
     return "Bot stopped successfully!"
 
+# Flask route to handle requests to the root URL
+@app.route("/", methods=["GET"])
+def index():
+    return "Your bot is running!"
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=int(os.getenv("PORT", 8080)))
